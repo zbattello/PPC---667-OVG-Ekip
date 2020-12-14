@@ -39,7 +39,7 @@ We also needed to explain how our processes and threads will comunicate with eac
  
  **<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters.  
  
- > | Left-aligned | Center-aligned | Right-aligned |
+| Left-aligned | Center-aligned | Right-aligned |
 | :---         |     :---:      |          ---: |
 | git status   | git status     | git status    |
 | git diff     | git diff       | git diff      |
