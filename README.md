@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # PPC Project - 667 OVG Ekip
 
 ## The	Energy	Market 
@@ -23,6 +24,13 @@ The processes will communicate will each other in a specific manner :
 > There will be a *shared memory* updated by Weather with the specific weather conditions.
 
 > Politics and Economics pocesses, childs of Market process, *signal* events to the latter which takes the corresponding action impacting energy price.
+
+*Energy price :* it can be calculated with the following formula : (E=mc^2)，$$x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2b}.$$
+
+
+
+  
+
 
 
 
