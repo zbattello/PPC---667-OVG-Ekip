@@ -1,6 +1,10 @@
 # PPC---667-OVG-Ekip
 
-The	Energy	Market - PPC Project
+## The	Energy	Market - PPC Project
+
+# 1. Goal
+
+### 1. Goal
 
 The	goal	of	this	programming	project	is	to	design	and	implement	a	multi-process	and	multithread	simulation	in	Python.	This	document	deFines	the	functionalities	that	it	has	to	implement
 at	a	minimum.	Any	extensions	and	developments	will	act	in	your	 favor	in	the	evaluation.	In
