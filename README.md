@@ -39,14 +39,14 @@ We also needed to explain how our processes and threads will comunicate with eac
  
  **<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters.  
  
-| Cause | f<sub>i,t<\sub> | Right-aligned |
-| :---         |     :---:      |          ---: |
-| Temperature effect   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+| Cause | f<sub>i,t</sub> | $\alpha$<sub>i</sub> | Détails |
+| :---         |     :---:      |          :---: |
+| Temperature effect   | 1/T | 0.001 | T varies between -10 and 30 |
+| Natural Disaster | 0 or 1  | 0.002 | Probability : 10<sup>-3</sup> |
  
- > The values representing the everyday weather will be updated in a shared memory with the Market process who is only able to read this array. The Homes processes have to be able to read it too beacause it can influence their energy consumption. We will be using the mutex tool to create this shared memory.
+> The values representing the everyday weather will be updated in a shared memory with the Market process who is only able to read this array. The Homes processes have to be able to read it too beacause it can influence their energy consumption. We will be using the mutex tool to create this shared memory.
  
- > 
+> 
 
  
 
