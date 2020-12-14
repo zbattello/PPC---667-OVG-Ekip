@@ -39,7 +39,7 @@ We also needed to explain how our processes and threads will comunicate with eac
  
  **<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters.  
  
-| Cause | f<sub>i,t</sub> | $\alpha$<sub>i</sub> | Détails |
+| Cause | f<sub>i,t</sub> | \alpha<sub>i</sub> | Details |
 | :---         |     :---:      |          :---: | :---: |
 | Temperature effect   | 1/T | 0.001 | T varies between -10 and 30 |
 | Natural Disaster | 0 or 1  | 0.002 | Probability : 10<sup>-3</sup> |
