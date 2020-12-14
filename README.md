@@ -37,8 +37,12 @@ We also needed to explain how our processes and threads will comunicate with eac
 
  **include graph 2**
  
- *<ins>Weather :</ins>*
- blabla
+ **<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters.  
+ 
+ > The values representing the weather everyday will be updated in a shared memory with the Market process who is only able to read this array. The Homes processes have to be able to read it too beacause it can influence their energy consumption.
+ 
+ > 
+
  
 
 
