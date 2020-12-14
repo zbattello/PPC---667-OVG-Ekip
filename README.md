@@ -3,6 +3,8 @@
 
 ## The	Energy	Market 
 
+a project preparation by Zoé Battello and Bastien Fontaine, 3TC3, 2020/2021
+
 ### 1. The project
 The goal of this programming projetc is to design and implement a *multi-process* and *multithread* simulation in Python. The program simulates an energy market where energy-producing and consuming homes, weather conditions and random events contribute to the evolution of energy price overtime :
 > Homes can give away their surplus energy, sell it to the market or buy it from the same place. The prices can go up because of temperature changes or when the average consumption exceeds that of production. Other events, such as laws, diplomatic tension etc. can impact energy prices.
@@ -37,6 +39,8 @@ We also needed to explain how our processes and threads will comunicate with eac
 
  **include graph 2**
  
+In this section, we are going to explain the way we intend to implement our project. We hope we will be able to incorporate all of these parameters and functionalities in our code. 
+ 
 **<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters. We choose arbitrary values to represent the effect of these events on the energy price (acording to the formula in the project presentation):
 
 | Cause | f<sub>i,t</sub> | a<sub>i</sub> | Details |
@@ -55,6 +59,8 @@ We also needed to explain how our processes and threads will comunicate with eac
 | Diplomatic tensions | 0 or 1  | 0.006 | Probability : 10<sup>-8</sup> |
 | Law enactment | 0 or 1  | 0.008 | Probability : 10<sup>-4</sup> |
 | Fuel shortage | 0 or 1  | 0.004 | Probability : 10<sup>-6</sup> |
+| Money rate change | 0 or 1  | 0.001 | Probability : 10<sup>-3</sup> |
+| Resources Price | 0 or 1  | 0.001 | Probability : 10<sup>-4</sup> |
 
 > 
 
