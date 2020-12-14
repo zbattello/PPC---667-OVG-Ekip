@@ -62,7 +62,8 @@ In this section, we are going to explain the way we intend to implement our proj
 | Money rate change | 0 or 1  | 0.001 | Probability : 10<sup>-3</sup> |
 | Resources Price | 0 or 1  | 0.001 | Probability : 10<sup>-4</sup> |
 
-> 
+
+**<ins>Homes :</ins>** The Houses can interfere with 2 Queues : 
 
  
 
