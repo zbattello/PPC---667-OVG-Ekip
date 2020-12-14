@@ -8,7 +8,9 @@ The goal of this programming projetc is to design ans implement a *multi-process
 
 The design of the project will contain five main **processes**, that can be modelled to fit the design intended by the creator :
 > **Homes** : Energy producing and consuming home with initial rates and production as well as a specific trade policy (*Always sell, give away or sell if no takers*).
+
 > **Market** : Current energy price which will evolve according to the events. The market process is multi-threaded and carries out transactions with homes in separate threads. There will be a limit to how many transactions can happend at the same time.
+
 > **Weather** : Simulation of weather conditions which will impact energy consumption (
 
 
