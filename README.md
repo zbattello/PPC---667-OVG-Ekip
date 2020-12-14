@@ -37,7 +37,7 @@ We also needed to explain how our processes and threads will comunicate with eac
 
  **include graph 2**
  
- <ins>Weather</ins>
+ *<ins>Weather :</ins>*
  blabla
  
 
