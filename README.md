@@ -34,7 +34,11 @@ The purpose of this section is to explain our solution for the project and to pr
 **include graph 1**
 
 We also needed to explain how our processes and threads will comunicate with each other. The next diagram represent the exchanges in our futur code :
+
  **include graph 2**
+ 
+ #### Weather
+ blabla
  
 
 
