@@ -37,16 +37,25 @@ We also needed to explain how our processes and threads will comunicate with eac
 
  **include graph 2**
  
- **<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters. We choose arbitrary values to represent the effect of these events on the energy price (acording to the formula in the project presentation):
+**<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters. We choose arbitrary values to represent the effect of these events on the energy price (acording to the formula in the project presentation):
 
 | Cause | f<sub>i,t</sub> | a<sub>i</sub> | Details |
-| :---         |     :---:      |          :---: | :---: |
-| Temperature effect   | 1/T | 0.001 | T varies between -10 and 30 |
-|  Small natural disaster | 0 or 1  | 0.002 | Probability : 10<sup>-2</sup> |
-|  Huge natural disaster | 0 or 1  | 0.01 | Probability : 10<sup>-5</sup> |
+| :--- | :---: | :---: | :---: |
+| Temperature effect | 1/T | 0.001 | T varies between -10 and 30 |
+| Small natural disaster | 0 or 1  | 0.002 | Probability : 10<sup>-2</sup> |
+| Huge natural disaster | 0 or 1  | 0.01 | Probability : 10<sup>-5</sup> |
  
 > The values representing the everyday weather will be updated in a shared memory with the Market process who is only able to read this array. The Homes processes have to be able to read it too beacause it can influence their energy consumption. We will be using the mutex tool to create this shared memory.
- 
+
+**<ins>Politics and Economics :</ins>** Theses processes work the same way, they are sending signals to the Market process. 
+
+| Cause | u<sub>i,t</sub> | B<sub>i</sub> | Details |
+| :---- | :----: | :----: | :----: |
+| War | 0 or 1 | 0.02 | Probability : 10<sup>-15</sup>|
+| Diplomatic tensions | 0 or 1  | 0.006 | Probability : 10<sup>-8</sup> |
+| Law enactment | 0 or 1  | 0.008 | Probability : 10<sup>-4</sup> |
+| Fuel shortage | 0 or 1  | 0.004 | Probability : 10<sup>-6</sup> |
+
 > 
 
  
