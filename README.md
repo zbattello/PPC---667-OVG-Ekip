@@ -39,7 +39,12 @@ We also needed to explain how our processes and threads will comunicate with eac
  
  **<ins>Weather :</ins>** This process can be influenced by temperature changes and natural disasters.  
  
- > The values representing the weather everyday will be updated in a shared memory with the Market process who is only able to read this array. The Homes processes have to be able to read it too beacause it can influence their energy consumption.
+ > | Left-aligned | Center-aligned | Right-aligned |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
+ 
+ > The values representing the everyday weather will be updated in a shared memory with the Market process who is only able to read this array. The Homes processes have to be able to read it too beacause it can influence their energy consumption. We will be using the mutex tool to create this shared memory.
  
  > 
 
