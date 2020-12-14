@@ -4,7 +4,7 @@
 ## The	Energy	Market 
 
 ### 1. The project
-The goal of this programming projetc is to design ans implement a *multi-process* and *multithread* simulation in Python. The program simulates an energy market where energy-producing and consuming homes, weather conditions and random events contribute to the evolution of energy price overtime :
+The goal of this programming projetc is to design and implement a *multi-process* and *multithread* simulation in Python. The program simulates an energy market where energy-producing and consuming homes, weather conditions and random events contribute to the evolution of energy price overtime :
 > Homes can give away their surplus energy, sell it to the market or buy it from the same place. The prices can go up because of temperature changes or when the average consumption exceeds that of production. Other events, such as laws, diplomatic tension etc. can impact energy prices.
 
 The design of the project will contain five main **processes**, that can be modelled to fit the design intended by the creator :
@@ -27,9 +27,16 @@ The processes will communicate will each other in a specific manner :
 
 *Energy price :* it can be calculated with the following formula : ![Image Formula](/images/formula.png)
 
-JSP SI ON MET LE TABLEAU QUI EXPLIQUE LA FORMULE
-
 ### 2. The Solution
+
+The purpose of this section is to explain our solution for the project and to present a development plan. The following graph is how we view the relations between our processes and threads. First, there is a main process controlling most of the processes including the Market which is a multiprocess and multithread program.
+
+**include graph 1**
+
+We also needed to explain how our processes and threads will comunicate with each other. The next diagram represent the exchanges in our futur code :
+ **include graph 2**
+ 
+
 
 
 
