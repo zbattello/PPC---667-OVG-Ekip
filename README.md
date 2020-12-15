@@ -32,6 +32,7 @@ The processes will communicate will each other in a specific manner :
 ### 2. The Solution
 
 The purpose of this section is to explain our solution for the project and to present a development plan. The following graph is how we view the relations between our processes and threads. First, there is a main process controlling most of the processes including the Market which is a multiprocess and multithread program. 
+
 ![Graph 1](/images/Diagram 1-3 2020-12-14 20_32_54.jpg raw=true)
 
 We also needed to explain how our processes and threads will comunicate with each other. The next diagram represent the exchanges in our futur code :
