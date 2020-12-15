@@ -35,6 +35,8 @@ The purpose of this section is to explain our solution for the project and to pr
 
 ![Graph 1](/images/Diagram1.jpg?raw=true)
 
+In this Diagram, we used a limited number of simultaneous transactions (here it is 3, a number chosen arbitrary, but we can put the limit higher), and we used a fixed number of homes (here it is N).
+
 We also needed to explain how our processes and threads will comunicate with each other. The next diagram represent the exchanges in our futur code :
 
  **include graph 2**
