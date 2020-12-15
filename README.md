@@ -39,7 +39,7 @@ In this Diagram, we used a limited number of simultaneous transactions (here it 
 
 We also needed to explain how our processes and threads will comunicate with each other. The next diagram represent the exchanges in our futur code :
 
-
+![Graph 2](/images/Diagram3.jpg?raw=true "Processes communication")
  
 In this section, we are going to explain the way we intend to implement our project. We hope we will be able to incorporate all of these parameters and functionalities in our code. 
  
