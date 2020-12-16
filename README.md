@@ -87,6 +87,9 @@ The Homes's attributes will be :
 
 > Trade policy : initialized with a random int between 0 and 2. It represents the strategy of the house in case of energy surplus.
 
+**<ins>Market :</ins>** The Market will calculate the price of energy according to the values he will receive and read in the shared memory. 
+
+### 3. The pseudo Code
 
 
 
