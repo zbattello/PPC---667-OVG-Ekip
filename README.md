@@ -65,12 +65,11 @@ In this section, we are going to explain the way we intend to implement our proj
 | Resources Price | 0 or 1  | 0.001 | Probability : 10<sup>-4</sup> |
 
 
-**<ins>Homes :</ins>** The Homes can read and write in 2 Queues : one is for the communication with the Market, and the other is for the communication between homes. In the first queue, the Homes who want to give away their energy surplus and the ones intrested will send messages :
+**<ins>Homes :</ins>** The Homes can read and write in 2 Queues : one is for the communication with the Market, and the other is for the communication between homes. In the first queue, the Homes who want to give away their energy surplus will send messages :
 
 | Event | Type | Message | 
 | :---- | :----: | :----: | 
 | Giving energy | 0 | quantity/n°homeGiving | 
-| Taking free energy | 1 | quantity/n°homeReiceving | 
 
 There is also a queue shared with the Market where they can buy and sell to each other :
 
