@@ -65,7 +65,7 @@ In this section, we are going to explain the way we intend to implement our proj
 | Resources Price | 0 or 1  | 0.001 | Probability : 10<sup>-4</sup> |
 
 
-**<ins>Homes :</ins>** The Houses can read and write in 2 Queues : one is for the communication with the Market, and the other is for the communication between houses. In the first queue, the Houses who wants to give away their energy surplus and the ones intrested will send messages :
+**<ins>Homes :</ins>** The Houses can read and write in 2 Queues : one is for the communication with the Market, and the other is for the communication between houses. In the first queue, the Houses who want to give away their energy surplus and the ones intrested will send messages :
 
 | Event | Type | Message | 
 | :---- | :----: | :----: | 
@@ -78,7 +78,14 @@ There is also a queue shared with the Market where they can buy and sell to each
 | :---- | :----: | :----: | 
 | Selling energy | 1 | quantity/n°houseSelling | 
 | Buying energy | 2 | quantity/n°houseBuying | 
- 
+
+The Homes's attributes will be : 
+
+> Production static : initialized with a random float between 0 and 1. It represents the quantity of energy produced by the house.
+
+> Consumption rate : initialized with a random float between 0 and 1. It represents the quantity of energy consumed ans it can evolve according to the temperature.
+
+> Trade policy : initialized with a random int between 0 and 2. It represents the strategy of the house in case of energy surplus.
 
 
 
