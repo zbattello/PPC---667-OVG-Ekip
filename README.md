@@ -65,23 +65,23 @@ In this section, we are going to explain the way we intend to implement our proj
 | Resources Price | 0 or 1  | 0.001 | Probability : 10<sup>-4</sup> |
 
 
-**<ins>Homes :</ins>** The Houses can read and write in 2 Queues : one is for the communication with the Market, and the other is for the communication between houses. In the first queue, the Houses who want to give away their energy surplus and the ones intrested will send messages :
+**<ins>Homes :</ins>** The Homes can read and write in 2 Queues : one is for the communication with the Market, and the other is for the communication between homes. In the first queue, the Homes who want to give away their energy surplus and the ones intrested will send messages :
 
 | Event | Type | Message | 
 | :---- | :----: | :----: | 
-| Giving energy | 1 | quantity/n°houseGiving | 
-| Taking free energy | 2 | quantity/n°houseReiceving | 
+| Giving energy | 0 | quantity/n°homeGiving | 
+| Taking free energy | 1 | quantity/n°homeReiceving | 
 
 There is also a queue shared with the Market where they can buy and sell to each other :
 
 | Event | Type | Message | 
 | :---- | :----: | :----: | 
-| Selling energy | 1 | quantity/n°houseSelling | 
-| Buying energy | 2 | quantity/n°houseBuying | 
+| Selling energy | 0 | quantity/n°homeSelling | 
+| Buying energy | 1 | quantity/n°homeBuying | 
 
 The Homes's attributes will be : 
 
-> Production static : initialized with a random float between 0 and 1. It represents the quantity of energy produced by the house.
+> Production static : initialized with a random float between 0 and 1. It represents the quantity of energy produced by the home.
 
 > Consumption rate : initialized with a random float between 0 and 1. It represents the quantity of energy consumed ans it can evolve according to the temperature.
 
