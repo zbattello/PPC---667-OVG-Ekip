@@ -92,7 +92,7 @@ The Homes's attributes will be :
 
 You can find the Pseudo-Code of our project right here : 
 
-[Pseudo-code](./pseudo-code.md)
+[Pseudo-code](Pseudo_Code.md)
 
 
 
