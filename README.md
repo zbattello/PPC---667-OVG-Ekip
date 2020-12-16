@@ -90,6 +90,9 @@ The Homes's attributes will be :
 
 ### 3. The pseudo Code
 
+You can find the Pseudo-Code of our project right here : 
+
+[Pseudo-code](./pseudo-code.md)
 
 
 
