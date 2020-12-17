@@ -102,7 +102,7 @@
 
     SET FLOAT Energy_Out = 0
 
-    SET FLOAT Long_Term_Coeff = 0,0001
+    SET FLOAT Long_Term_Coeff = 0,0999
     
     SET INT Max_Thread = 3
 
