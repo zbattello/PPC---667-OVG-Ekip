@@ -62,11 +62,11 @@
 
     SET FLOAT T = 18,25
 
-    Set FLOAT Probability = random between 0,0 and 1,0 
-
     SET INT Compteur = -1
 
     FOR EACH Day
+    
+      SET FLOAT Probability = random between 0,0 and 1,0 
 
       T = T+ Compteur * 0,05 
 
@@ -102,13 +102,13 @@
 
     SET FLOAT Energy_Out = 0
 
-    SET FLOAT Long_Term_Coeff = 0,0001
+    SET FLOAT Long_Term_Coeff = 0,0999
+    
+    SET INT Max_Thread = 3
 
     FOR EACH Day
 
       SET INT Thread_Count = 0
-
-      SET INT Max_Thread = 3
 
       CATCH Signals (FROM Economics and Politics)
 
