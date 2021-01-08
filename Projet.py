@@ -8,20 +8,7 @@ import sysv_ipc
 import sys
 import time
 import random
-
-
-#def handler(sig, frame):
-#    for i in range(len(signaux)):
-#        if sig == signaux[i] :
-#            pass
-
-#for i in range(len(signaux)):
-#    signal.signal(signaux[i],handler)
-
-dico_signaux = {}
-
- #Réfléchir à handle les signaux par le market
- #réfléchir à transmettre les données du handler au market
+import math
 
 #shared memory : 0: T à t-1 1: T à t 2: Small disaster 3: huge disaster
 def weather(proba_disaster_H,proba_disaster_S,shared_memory):
@@ -58,10 +45,12 @@ def weather(proba_disaster_H,proba_disaster_S,shared_memory):
     print("le process s'est éxécuté")
 
 class market(ms.Process):
+
     def __init__ (self, shared_memory, coeff):
         super().__init__()
         self.coeff = coeff
         self.shared_memory = shared_memory
+        self.event = [0,0,0,0,0,0]
         self.energy_Price = 0.5
         self.energy_In = 0.0
         self.energy_Out = 0.0
@@ -82,30 +71,72 @@ class market(ms.Process):
                 natural_disast_s = float("{:.2f}".format(self.shared_memory[2]))
                 natural_disast_h = float("{:.2f}".format(self.shared_memory[3]))
 
-                #eco_pol = ms.Process(target=economics_politics, args=())
-                #eco_pol.start()
-                #eco_pol.join()
-                #eco_pol.terminate()
+                eco_pol = ms.Process(target=economics_politics, args=())
+                eco_pol.start()
+                eco_pol.join()
+                eco_pol.terminate()
 
-                self.energy_Price = self.energy_Price*self.long_term_coeff + (1/temperature)*self.coeff[0] + natural_disast_s*self.coeff[1] + natural_disast_h*self.coeff[2]  
+                a = 0
+
+                for i in range(len(self.event)) :
+                    a = a + self.coeff[i+3]*self.event[i]
+
+                self.energy_Price = self.energy_Price*self.long_term_coeff - a + (1/temperature)*self.coeff[0] + natural_disast_s*self.coeff[1] + natural_disast_h*self.coeff[2]  
                 print("energy price : ", self.energy_Price)
                 start = time.time() 
                 c+=1 
 
-def economics_politics():
-    proba = [10^(-15),10^(-8),10^(-4),10^(-6),10^(-3),10^(-4)]
+    def handler(self, sig):
+        if sig == 30:
+            self.event[0] = 1
+            print("war")
+        if sig == 10:
+            self.event[1] = 1
+            print("tensions")
+        if sig == 16:
+            self.event[2] = 1
+            print("Law")
+        if sig == 31:
+            self.event[3] = 1
+            print("Fuel")
+        if sig == 12:
+            self.event[4] = 1
+            print("Money")
+        if sig == 17:
+            self.event[5] = 1
+            print("Ressources")
 
-    print("economics_politics start")
+        #Add a TTL to the event (ex war : 3 days)
+
+    signal.signal(30,handler)
+    signal.signal(10,handler)
+    signal.signal(16,handler)
+    signal.signal(31,handler)
+    signal.signal(12,handler)
+    signal.signal(17,handler)
+
+    def transaction(self):
+        #à implémenter
+        pass
+
+def economics_politics():
+
+    proba = [math.pow(10,-15),math.pow(10,-8),math.pow(10,-4),math.pow(10,-6),math.pow(10,-3),math.pow(10,-4)]
+    signaux = [30,10,16,31,12,17]
+
     for i in range(len(proba)) :
-        if random.randint(1,int((1/proba[i])))==1 :
-            os.kill(os.getppid(),signaux[i])   
+        if (random.randint(1,int(1/proba[i])))==1 :
+            os.kill(os.getppid(),signaux[i]) 
+    
+def homes(): 
+    pass
+
+
 
 
 if __name__ == "__main__":
     
     shared_memory = ms.Array('f',4)
-
-    signaux = [30,10,16,31,12,17]
     
     proba_disaster_S = 0.01
     proba_disaster_H = 0.00001
@@ -128,3 +159,5 @@ if __name__ == "__main__":
     print ("weather terminé")
     market_process.terminate()
     print ("market terminé")
+
+#add a general handler for control+C => quitter proprement
