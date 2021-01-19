@@ -3,9 +3,25 @@
 
 ## The	Energy	Market 
 
-a project preparation by Zoé Battello and Bastien Fontaine, 3TC3, 2020/2021
+a project by Zoé Battello and Bastien Fontaine, 3TC3, 2020/2021
 
-### 1. The project
+### 1. The Code
+
+This is everything you need to know about our code :
+
+> **How to execute** : The command is : python3 Projet.py
+
+> **Homes** : Each have a house number and a trade policy (0 : Always sell, 1 : Always give, 2 : Sell if no takers). At the time of their creation, the homes are asigned two random floats (0 : none, 1 : max) that define their production and consumption (varies according to the temperature) of energy. The energy amount represent the difference between these two values, if it's negative the home will be looking for a way to gain energy, if it's positive the home will get rid of it according to it's trade policy.
+
+> **Weather** : It's the first process to start each day, it fills a shared memory with it's informations : Yesterday's temperature, Today's temperature, event small disaster, event huge disaster. In this file you can change the temperature of the first day and "compteur" that represents if the temperature starts by rising or going down.
+
+> **Economics and Politics** : This a process started by the market, it sends signals if a event occured
+
+> **Market** : The energy prices varies according to many events listed in the following array. We changed the values since the project preparation, the energy price starts at 100 centimes/kWatt. This process starts threads which take care of the transactions between the Markets and the Homes.
+
+> **Main** : This file starts the processes. Here you can change the values : Coefs; Probabilities; Number of Homes, Threads or Days.
+
+### 2. The project preparation
 The goal of this programming project is to design and implement a *multi-process* and *multithread* simulation in Python. The program simulates an energy market where energy-producing and consuming homes, weather conditions and random events contribute to the evolution of energy price overtime :
 > Homes can give away their surplus energy, sell it to the market or buy it from the same place. The prices can go up because of temperature changes or when the average consumption exceeds that of production. Other events, such as laws, diplomatic tension etc. can impact energy prices.
 
@@ -29,7 +45,7 @@ The processes will communicate with each other in different ways :
 
 The *Energy price* can be calculated with the following formula : ![Image Formula](/images/formula.png)
 
-### 2. The Solution
+### 3. The Solution
 
 The purpose of this section is to explain our solution for the project and to present a development plan. The following graph is how we see the relations between our processes and threads. First, there is a main process controlling most of the processes including the Market which is a multiprocess and multithread program. 
 
@@ -88,11 +104,19 @@ The Homes's attributes will be :
 
 **<ins>Market :</ins>** The Market will calculate the price of energy according to the values he will receive and read in the shared memory. 
 
-### 3. The pseudo Code
+### 4. The pseudo Code
 
 You can find the Pseudo-Code of our project right here : 
 
 [Pseudo-code](Pseudo_Code.md)
+
+
+
+
+
+  
+
+
 
 
 
