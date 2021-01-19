@@ -15,7 +15,7 @@ This is everything you need to know about our code :
 
 > **Weather** : It's the first process to start each day, it fills a shared memory with it's informations : Yesterday's temperature, Today's temperature, event small disaster, event huge disaster. In this file you can change the temperature of the first day and "compteur" that represents if the temperature starts by rising or going down.
 
-> **Economics and Politics** : This a process started by the market, it sends signals if a event occured
+> **Economics and Politics** : This a process started by the market, it sends signals if a event occures
 
 > **Market** : The energy prices varies according to many events listed in the following array. We changed the values since the project preparation, the energy price starts at 100 centimes/kWatt. This process starts threads which take care of the transactions between the Markets and the Homes.
 
