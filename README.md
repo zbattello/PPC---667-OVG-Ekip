@@ -11,15 +11,15 @@ This is everything you need to know about our code :
 
 > **How to execute** : The command is : python3 Projet.py
 
-> **Homes** : Each have a house number and a trade policy (0 : Always sell, 1 : Always give, 2 : Sell if no takers). At the time of their creation, the homes are asigned two random floats (0 : none, 1 : max) that define their production and consumption (varies according to the temperature) of energy. The energy amount represent the difference between these two values, if it's negative the home will be looking for a way to gain energy, if it's positive the home will get rid of it according to it's trade policy.
+> **Homes** : Each have a house number and a trade policy (0 : Always sell, 1 : Always give, 2 : Sell if no takers). At the time of their creation, the homes are asigned two random floats (0 : none, 1 : max) that define their production and consumption (varies according to the temperature) of energy. The energy amount represents the difference between these two values : if it's negative, the home will be looking for a way to gain energy, if it is positive, the home will get rid of it according to it is trade policy.
 
-> **Weather** : It's the first process to start each day, it fills a shared memory with it's informations : Yesterday's temperature, Today's temperature, event small disaster, event huge disaster.
+> **Weather** : It's the first process to start each day, it fills a shared memory with its information : Yesterday's temperature, Today's temperature, event small disaster, event huge disaster.
 
-> **Economics and Politics** : This a process started by the market, it sends signals if a event occures
+> **Economics and Politics** : This is a process started by the market, it sends signals to his parent (the market) if an event occures
 
-> **Market** : The energy prices varies according to many events listed in the following array. We changed the values since the project preparation, the energy price starts at 100 centimes/kWatt. This process starts threads which take care of the transactions between the Markets and the Homes.
+> **Market** : The energy prices varies according to many events listed in the following array. We changed the values since the project preparation. The energy price starts at 100 cents/kWatt. This process starts threads which take care of the transactions between the Market and the Homes.
 
-> **Main** : This file starts the processes. Here you can change the values : Coefs; Probabilities; Number of Homes, Threads or Days; First Temperature and "way" that represents if the temperature starts by rising or going down.
+> **Main** : This process starts the other processes. Here you can change the values : Coeffs, Probabilities, Number of Homes, Max number of Threads running simultaneously, number of days , initial temperature and "way" that represents if the temperature starts increasing or deacreasing.
 
 ### 2. The project preparation
 The goal of this programming project is to design and implement a *multi-process* and *multithread* simulation in Python. The program simulates an energy market where energy-producing and consuming homes, weather conditions and random events contribute to the evolution of energy price overtime :
