@@ -4,7 +4,7 @@ from market import empty_queue
 
 class homes(ms.Process):
     
-    def __init__(self, n, shared_memory, home_give_queue, home_taken_queue,market_home,day,meteo,homes_barrier,homes_barrier2,market_barrier, lock):
+    def __init__(self, n, shared_memory, home_give_queue, home_taken_queue,market_home,day,meteo,homes_barrier,homes_barrier2,market_barrier, lock, NumberOfDay):
         super().__init__()
         self.number = n
         self.production = random.random()
@@ -21,18 +21,19 @@ class homes(ms.Process):
         self.market_home = market_home
         self.market_barrier = market_barrier
         self.day = day
+        self.NumberOfDay = NumberOfDay
 
 
 
     def run(self):
-        c=0
-        while c<=5:
+        c=1
+        while c<=self.NumberOfDay:
 
             self.meteo.wait()
 
             c+=1
 
-            self.consumption = self.consumption - ((self.shared_memory[1]-self.shared_memory[0]))
+            self.consumption = self.consumption - ((self.shared_memory[1]-self.shared_memory[0])*0.01)
             
             if self.consumption >= 1.0 :
                 self.consumption = 0.99999
@@ -41,43 +42,28 @@ class homes(ms.Process):
             
             self.energy_amount = self.production - self.consumption
 
-            #Faire des methodes a la place de tout mettre dans le run 
-
-            if self.energy_amount > 0.0 and self.trade_policy != 0 and not self.home_give_queue.full():
-                self.lock.acquire()
-                self.home_give_queue.put(self.energy_amount)
-                self.lock.release()
+            if self.energy_amount > 0.0 and self.trade_policy != 0 :
+                
+                self.depot()
+                
                 self.homes_barrier.wait()
                 self.maison(self.energy_amount, ' propose {:.3f} d\'énergie gratuitement.'.format(self.energy_amount))
                 self.homes_barrier2.wait()
-                self.lock.acquire()
-                
-                if not self.home_taken_queue.empty() :
-                    for _ in range(self.home_taken_queue.qsize()) :
-                        amount2 = self.home_taken_queue.get()
-                        if amount2 == self.energy_amount :
-                            self.maison(0, ' a donné {:.3f} d\'énergie gratuitement.'.format(self.energy_amount))
-                            self.energy_amount = 0.0
-                            break
-                        else:
-                            self.home_taken_queue.put(amount2) #probleme ici et c'est chiant
-                self.lock.release()
 
-                if self.energy_amount > 0.0 and not self.market_home.full() and self.trade_policy == 2:
-                    self.lock.acquire()
-                    self.market_home.put(self.energy_amount)
-                    self.lock.release()
+                self.verif()
+
+                if self.energy_amount > 0.0  and self.trade_policy == 2:
+                    self.vente()
                     self.maison(0, ' a vendu {:.3f} d\'énergie au marché.'.format(self.energy_amount))
                     self.energy_amount = 0.0
-                if self.energy_amount > 0.0 and self.trade_policy == 1 :
+                
+                elif self.energy_amount > 0.0 and self.trade_policy == 1 :
                     self.maison(0, ' jette {:.3f} d\'énergie.'.format(self.energy_amount))
                     self.energy_amount = 0.0
                     
 
             if self.energy_amount > 0.0 and self.trade_policy == 0 :
-                self.lock.acquire()
-                self.market_home.put(self.energy_amount)
-                self.lock.release()
+                self.vente()
                 self.maison(0, ' a directement vendu {:.3f} d\'énergie au marché.'.format(self.energy_amount))
                 self.energy_amount = 0.0
                 self.homes_barrier.wait()
@@ -109,6 +95,31 @@ class homes(ms.Process):
             if self.number == 1 :
                 empty_queue(self.home_give_queue)
                 empty_queue(self.home_taken_queue)
+
+    def depot(self) :
+        self.lock.acquire()
+        self.home_give_queue.put(self.energy_amount)
+        self.lock.release()
+
+    def verif(self) :
+        self.lock.acquire()
+        if not self.home_taken_queue.empty() :
+            for _ in range(self.home_taken_queue.qsize()) :
+                amount2 = self.home_taken_queue.get()
+                if amount2 == self.energy_amount :
+                    self.maison(0, ' a donné {:.3f} d\'énergie gratuitement.'.format(self.energy_amount))
+                    self.energy_amount = 0.0
+                    break
+                else:
+                    self.home_taken_queue.put(amount2) #probleme ici et c'est chiant
+        self.lock.release()
+
+    def vente(self) :
+        self.lock.acquire()
+        self.market_home.put(self.energy_amount)
+        self.lock.release()
+
+
 
     
     def maison(self, energy, s) : #----------------------------------------------------------------
