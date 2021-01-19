@@ -3,15 +3,14 @@ import random
 
 class weather(ms.Process):
 
-    def __init__(self, proba_disaster_H, proba_disaster_S, shared_memory, day, meteo, NumberOfDay):
+    def __init__(self, proba_disaster_H, proba_disaster_S, shared_memory, day, NumberOfDay):
         super().__init__()
         self.temperature = 36.45
-        self.compteur = -1.0
+        self.compteur = 1.0
         self.shared_memory = shared_memory
         self.proba_disaster_S = proba_disaster_S
         self.proba_disaster_H = proba_disaster_H
         self.day = day
-        self.meteo = meteo
         self.NumberOfDay = NumberOfDay
 
     def run(self):
@@ -34,5 +33,5 @@ class weather(ms.Process):
             if random.randint(1,int((1/self.proba_disaster_H)))==1 :
                 self.shared_memory[3]=1.0
                         
-            self.meteo.wait()
+            self.day.wait()
             self.day.wait()

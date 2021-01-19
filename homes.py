@@ -4,7 +4,7 @@ from market import empty_queue
 
 class homes(ms.Process):
     
-    def __init__(self, n, shared_memory, home_give_queue, home_taken_queue,market_home,day,meteo,homes_barrier,homes_barrier2,market_barrier, lock, NumberOfDay):
+    def __init__(self, n, shared_memory, home_give_queue, home_taken_queue,market_home,day,homes_barrier,market_barrier, lock, NumberOfDay):
         super().__init__()
         self.number = n
         self.production = random.random()
@@ -12,12 +12,10 @@ class homes(ms.Process):
         self.trade_policy = random.randint(0,2)
         self.energy_amount = self.production - self.consumption
         self.shared_memory = shared_memory
-        self.meteo = meteo
         self.home_give_queue = home_give_queue
         self.home_taken_queue = home_taken_queue
         self.lock = lock
         self.homes_barrier = homes_barrier
-        self.homes_barrier2 = homes_barrier2
         self.market_home = market_home
         self.market_barrier = market_barrier
         self.day = day
@@ -29,7 +27,7 @@ class homes(ms.Process):
         c=1
         while c<=self.NumberOfDay:
 
-            self.meteo.wait()
+            self.day.wait()
 
             c+=1
 
@@ -48,7 +46,7 @@ class homes(ms.Process):
                 
                 self.homes_barrier.wait()
                 self.maison(self.energy_amount, ' propose {:.3f} d\'énergie gratuitement.'.format(self.energy_amount))
-                self.homes_barrier2.wait()
+                self.homes_barrier.wait()
 
                 self.verif()
 
@@ -67,7 +65,7 @@ class homes(ms.Process):
                 self.maison(0, ' a directement vendu {:.3f} d\'énergie au marché.'.format(self.energy_amount))
                 self.energy_amount = 0.0
                 self.homes_barrier.wait()
-                self.homes_barrier2.wait()
+                self.homes_barrier.wait()
 
 
             elif self.energy_amount<0.0 :
@@ -88,7 +86,7 @@ class homes(ms.Process):
                     self.maison(0, ' a acheté {:.3f} d\'énergie au marché.'.format(-self.energy_amount))
                     self.energy_amount = 0.0
                 self.lock.release()
-                self.homes_barrier2.wait()
+                self.homes_barrier.wait()
 
             self.market_barrier.wait()
             self.day.wait()
@@ -111,7 +109,7 @@ class homes(ms.Process):
                     self.energy_amount = 0.0
                     break
                 else:
-                    self.home_taken_queue.put(amount2) #probleme ici et c'est chiant
+                    self.home_taken_queue.put(amount2)
         self.lock.release()
 
     def vente(self) :

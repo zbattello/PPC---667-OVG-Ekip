@@ -8,7 +8,7 @@ import os
 
 class market(ms.Process):
 
-    def __init__ (self, shared_memory, coeff, market_home, day,meteo,market_barrier, lock, NumberOfDay):
+    def __init__ (self, shared_memory, coeff, proba, market_home, day,market_barrier, lock, NumberOfDay, NumberOfThreads):
         super().__init__()
         self.coeff = coeff
         self.shared_memory = shared_memory
@@ -17,15 +17,14 @@ class market(ms.Process):
         self.energy_In = 0.0
         self.energy_Out = 0.0
         self.long_term_coeff = 0.998
-        self.max_thread = 5
-        self.nb_thread = 0
         self.resut_trans = 0
-        self.meteo = meteo
+        self.proba = proba
         self.market_barrier = market_barrier
         self.market_home = market_home
         self.lock = lock
         self.day = day
         self.NumberOfDay = NumberOfDay
+        self.NumberOfThreads = NumberOfThreads
 
     def run(self):
 
@@ -38,15 +37,13 @@ class market(ms.Process):
 
         c=1
         while c<=self.NumberOfDay:
-            
-            self.nb_thread = 0
-            
+                        
             eco_pol = ms.Process(target=self.economics_politics, args=())
             eco_pol.start()
             eco_pol.join()
             eco_pol.terminate()
             print("------------Jour ", c,"--------------" )
-            self.meteo.wait()
+            self.day.wait()
 
             temperature = float("{:.2f}".format(self.shared_memory[1]))
             print("                                                  (Température : ", temperature-10,"°C)" )
@@ -64,20 +61,31 @@ class market(ms.Process):
 
             self.market_barrier.wait()
 
-            threads = [th.Thread(target=self.transaction, args=(self.market_home, self.lock)) for i in range(self.max_thread)]
+            while True :
+                self.lock.acquire()
+                a = self.market_home.empty()
+                self.lock.release()
 
-            for thread in threads:
-                thread.start()
+                if a == True :
+                    break
+
+                else :
+
+                    threads = [th.Thread(target=self.transaction, args=(self.market_home, self.lock)) for i in range(self.NumberOfThreads)]
+
+                    for thread in threads:
+                        thread.start()
        
-            for thread in threads:
-                thread.join()
+                    for thread in threads:
+                        thread.join()
+                
 
-            self.energy_Price = self.energy_Price*self.long_term_coeff + a + (1/temperature)*self.coeff[0] + natural_disast_s*self.coeff[1] + natural_disast_h*self.coeff[2] + self.resut_trans * (-0.01) 
+            self.energy_Price = self.energy_Price*self.long_term_coeff + a + (1/temperature)*self.coeff[0] + natural_disast_s*self.coeff[1] + natural_disast_h*self.coeff[2] + self.resut_trans * (-self.coeff[9]) 
             
             if self.energy_Price >= 200.0 :
-                self.energy_Price = 200.0
+                self.energy_Price = 150.0
             elif self.energy_Price <= 25.0 :
-                self.energy_Price = 25.0
+                self.energy_Price = 75.0
             
             print("                                    Prix de l'énergie: ", self.energy_Price, "\n")
             c+=1
@@ -121,11 +129,10 @@ class market(ms.Process):
 
     def economics_politics(self):
 
-        proba = [math.pow(10,-5),math.pow(10,-4),math.pow(10,-3),math.pow(10,-2),math.pow(10,-2),math.pow(10,-1)]
         signaux = [30,10,16,31,12,23]
 
-        for i in range(len(proba)) :
-            if (random.randint(1,int(1/proba[i])))==1 :
+        for i in range(len(self.proba)) :
+            if (random.randint(1,int(1/self.proba[i])))==1 :
                 os.kill(os.getppid(),signaux[i]) 
 
 def empty_queue(q):
