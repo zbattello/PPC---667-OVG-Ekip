@@ -13,13 +13,13 @@ This is everything you need to know about our code :
 
 > **Homes** : Each have a house number and a trade policy (0 : Always sell, 1 : Always give, 2 : Sell if no takers). At the time of their creation, the homes are asigned two random floats (0 : none, 1 : max) that define their production and consumption (varies according to the temperature) of energy. The energy amount represent the difference between these two values, if it's negative the home will be looking for a way to gain energy, if it's positive the home will get rid of it according to it's trade policy.
 
-> **Weather** : It's the first process to start each day, it fills a shared memory with it's informations : Yesterday's temperature, Today's temperature, event small disaster, event huge disaster. In this file you can change the temperature of the first day and "compteur" that represents if the temperature starts by rising or going down.
+> **Weather** : It's the first process to start each day, it fills a shared memory with it's informations : Yesterday's temperature, Today's temperature, event small disaster, event huge disaster.
 
 > **Economics and Politics** : This a process started by the market, it sends signals if a event occures
 
 > **Market** : The energy prices varies according to many events listed in the following array. We changed the values since the project preparation, the energy price starts at 100 centimes/kWatt. This process starts threads which take care of the transactions between the Markets and the Homes.
 
-> **Main** : This file starts the processes. Here you can change the values : Coefs; Probabilities; Number of Homes, Threads or Days.
+> **Main** : This file starts the processes. Here you can change the values : Coefs; Probabilities; Number of Homes, Threads or Days; First Temperature and "way" that represents if the temperature starts by rising or going down.
 
 ### 2. The project preparation
 The goal of this programming project is to design and implement a *multi-process* and *multithread* simulation in Python. The program simulates an energy market where energy-producing and consuming homes, weather conditions and random events contribute to the evolution of energy price overtime :
