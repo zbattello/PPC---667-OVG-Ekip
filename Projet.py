@@ -28,9 +28,13 @@ if __name__ == "__main__":
         shared_memory = ms.Array('f',4)
 
         #Number of days, homes and threads the simulation will use
-        NumberOfDay = 500
+        NumberOfDay = 30
 
         NumberOfHomes = 10
+
+        #inital temperature and way of evolution (1.0 = increase, -1.0 = decrease)
+        temperature = 36.45
+        way = 1.0
 
         NumberOfThreads = 10
 
@@ -57,7 +61,7 @@ if __name__ == "__main__":
         market_home = ms.Queue(NumberOfHomes)
 
         #Processes creation
-        weather_process = weather(proba_disaster_H, proba_disaster_S, shared_memory, day, NumberOfDay)
+        weather_process = weather(proba_disaster_H, proba_disaster_S, shared_memory, day, NumberOfDay, temperature, way)
         market_process = market(shared_memory, coeff, proba_eco_pol, market_home, day, market_barrier, lock, NumberOfDay, NumberOfThreads)
 
         homes_processes = [homes(i+1, shared_memory, home_give_queue, home_taken_queue, market_home, day, homes_barrier, market_barrier, lock, NumberOfDay) for i in range (NumberOfHomes)]

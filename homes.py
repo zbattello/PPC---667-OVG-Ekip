@@ -26,11 +26,13 @@ class homes(ms.Process):
     def run(self):
         c=1
         while c<=self.NumberOfDay:
-
+            
+            #Wait for the weather process
             self.day.wait()
 
             c+=1
 
+            #consumption updates 
             self.consumption = self.consumption - ((self.shared_memory[1]-self.shared_memory[0])*0.01)
             
             if self.consumption >= 1.0 :
@@ -38,8 +40,10 @@ class homes(ms.Process):
             if self.consumption < 0.0 :
                 self.consumption = 0.0
             
+            #energy amount calculated
             self.energy_amount = self.production - self.consumption
 
+            #Too much energy and "give" trade policy
             if self.energy_amount > 0.0 and self.trade_policy != 0 :
                 
                 self.depot()
@@ -59,7 +63,7 @@ class homes(ms.Process):
                     self.maison(0, ' jette {:.3f} d\'énergie.'.format(self.energy_amount))
                     self.energy_amount = 0.0
                     
-
+            #Too much energy and "always sell" trade policy
             if self.energy_amount > 0.0 and self.trade_policy == 0 :
                 self.vente()
                 self.maison(0, ' a directement vendu {:.3f} d\'énergie au marché.'.format(self.energy_amount))
@@ -67,7 +71,7 @@ class homes(ms.Process):
                 self.homes_barrier.wait()
                 self.homes_barrier.wait()
 
-
+            #Lack of energy
             elif self.energy_amount<0.0 :
                 self.maison(self.energy_amount, ' est en manque d\'énergie.')
                 self.homes_barrier.wait()
@@ -88,6 +92,7 @@ class homes(ms.Process):
                 self.lock.release()
                 self.homes_barrier.wait()
 
+            #Allow the market to start and wait for the day to finish
             self.market_barrier.wait()
             self.day.wait()
             if self.number == 1 :
@@ -119,8 +124,8 @@ class homes(ms.Process):
 
 
 
-    
-    def maison(self, energy, s) : #----------------------------------------------------------------
+    #Print of homes configuration
+    def maison(self, energy, s) :
         a=float("{:.2f}".format(self.production))
         b=float("{:.2f}".format(self.consumption))
         c=float("{:.2f}".format(energy))

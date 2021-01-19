@@ -28,6 +28,7 @@ class market(ms.Process):
 
     def run(self):
 
+        #signals definition
         signal.signal(30,self.handler)
         signal.signal(10,self.handler)
         signal.signal(16,self.handler)
@@ -37,12 +38,15 @@ class market(ms.Process):
 
         c=1
         while c<=self.NumberOfDay:
-                        
+
+            #economics and politics creation, start, join and terminate            
             eco_pol = ms.Process(target=self.economics_politics, args=())
             eco_pol.start()
             eco_pol.join()
             eco_pol.terminate()
             print("------------Jour ", c,"--------------" )
+            
+            #wait for the weather process
             self.day.wait()
 
             temperature = float("{:.2f}".format(self.shared_memory[1]))
@@ -59,6 +63,7 @@ class market(ms.Process):
             for i in range(len(self.event)) :
                 a = (a + self.coeff[i+3]*self.event[i])*2
 
+            #wait for the homes 
             self.market_barrier.wait()
 
             while True :
@@ -79,7 +84,7 @@ class market(ms.Process):
                     for thread in threads:
                         thread.join()
                 
-
+            #Evaluation of energy price
             self.energy_Price = self.energy_Price*self.long_term_coeff + a + (1/temperature)*self.coeff[0] + natural_disast_s*self.coeff[1] + natural_disast_h*self.coeff[2] + self.resut_trans * (-self.coeff[9]) 
             
             if self.energy_Price >= 200.0 :
@@ -93,6 +98,7 @@ class market(ms.Process):
             empty_queue(self.market_home)
             self.day.wait()
 
+    #signal handler
     def handler(self, sig, frame):
         if sig == 30:
             self.event[0] = 1
@@ -113,10 +119,7 @@ class market(ms.Process):
             self.event[5] = 1
             print("                              !!!!!!Le prix des ressources augmente!!!!!!")
 
-        #Add a TTL to the event (ex war : 3 days)
-
-
-
+    #worker for pool of transaction threads
     def transaction(self, q, lock):
         lock.acquire()
         try :
@@ -126,7 +129,7 @@ class market(ms.Process):
         except queue.Empty:
             pass
         lock.release()
-
+    
     def economics_politics(self):
 
         signaux = [30,10,16,31,12,23]
